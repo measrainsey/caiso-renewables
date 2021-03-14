@@ -65,7 +65,7 @@
       geom_density(alpha = 0.7, color = 'black', lwd = 0.1) + 
       labs(title = 'CAISO solar generation in 2020',
            subtitle = 'Distribution of daily solar PV generation by month. \nColor is average daily generation for that month, where a darker red represents a higher average.',
-           caption = 'Source: CAISO OASIS',
+           caption = 'Source: CAISO',
            x = 'Daily generation (GWh)',
            y = NULL) + 
       facet_wrap(~month, ncol = 1, strip.position = "left", dir = "v") +
@@ -97,7 +97,7 @@
       geom_density(alpha = 0.7, color = 'black', lwd = 0.1) + 
       labs(title = 'CAISO wind generation in 2020',
            subtitle = 'Distribution of daily wind generation by month. \nColor is average daily generation for that month, where a darker blue represents a higher average.',
-           caption = 'Source: CAISO OASIS',
+           caption = 'Source: CAISO',
            x = 'Daily generation (GWh)',
            y = NULL) + 
       facet_wrap(~month, ncol = 1, strip.position = "left", dir = "v") +
