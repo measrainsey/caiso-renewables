@@ -43,6 +43,10 @@ df_caiso = pd.concat(appended_dfs, axis=0, sort=False)
 df_caiso.columns= df_caiso.columns.str.lower()
 df_caiso.columns = df_caiso.columns.str.replace(' ','_')
 
+# convert columns to numeric -------
+cols = ['geothermal', 'biomass', 'biogas', 'small_hydro', 'wind_total', 'solar_pv', 'solar_thermal']
+df_caiso[cols] = df_caiso[cols].apply(pd.to_numeric, errors = 'coerce')
+
 # find daily maximum generation of each renewable source ------
 print('Data collection complete. Now processing data...')
 
