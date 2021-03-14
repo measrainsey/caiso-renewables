@@ -52,28 +52,28 @@
             axis.line.x = element_line(color = 'black', size = 0.3),
             axis.ticks.x = element_line(color = 'black', size = 0.3),
             axis.ticks.length.x = unit(0.2, 'cm'),
-            axis.text.x = element_text(margin = margin(2, 0, 0, 0)))
+            axis.text.x = element_text(margin = margin(2, 0, 0, 0))) +  
+      theme(strip.text.y.left = element_text(angle = 0, hjust = 1, vjust = 0)) +
+      theme(panel.spacing.y = unit(-4, "lines")) +
+      theme(axis.text.y = element_blank()) +
+      theme(legend.position = "none") +
+      theme(plot.subtitle = element_text(margin=margin(0,0,-15,0)))
   
   # plot: solar pv -------
   
     fig_solar = ggplot(dt_caiso, aes(x = solar_pv/1e3, fill = solar_pv_mean)) + 
       geom_density(alpha = 0.7, color = 'black', lwd = 0.1) + 
       labs(title = 'CAISO solar generation in 2020',
-           subtitle = 'Distribution of daily solar PV generation by month. \nColor is average daily generation for that month, where darker red represents a higher average.',
+           subtitle = 'Distribution of daily solar PV generation by month. \nColor is average daily generation for that month, where a darker red represents a higher average.',
            caption = 'Source: CAISO OASIS',
            x = 'Daily generation (GWh)',
            y = NULL) + 
       facet_wrap(~month, ncol = 1, strip.position = "left", dir = "v") +
       scale_fill_gradient(low = '#fee6ce', high = '#e6550d') +
-      scale_x_continuous(expand = c(0,0)) +
+      scale_x_continuous(expand = c(0,0), limits = c(0, 150), breaks = seq(0, 150, 25)) +
       scale_y_continuous(expand = c(0,0)) + 
-      theme_line +  
-      theme(strip.text.y.left = element_text(angle = 0, hjust = 1, vjust = 0)) +
-      theme(panel.spacing.y = unit(-4, "lines")) +
-      theme(axis.text.y = element_blank()) +
-      theme(legend.position = "none") +
-      theme(plot.subtitle = element_text(margin=margin(0,0,-35,0)))
-    # fig_solar
+      theme_line
+    fig_solar
     
     ggsave(fig_solar,
            filename = file.path(here::here('figures'), 'plot-ridgeline-solar.pdf'),
@@ -85,4 +85,30 @@
     embed_fonts(file.path(here::here('figures'), 'plot-ridgeline-solar.pdf'),
                 outfile = file.path(here::here('figures'), 'plot-ridgeline-solar.pdf'))
     
-  
+  # plot: wind -------
+    
+    fig_wind = ggplot(dt_caiso, aes(x = wind_total/1e3, fill = wind_total_mean)) + 
+      geom_density(alpha = 0.7, color = 'black', lwd = 0.1) + 
+      labs(title = 'CAISO wind generation in 2020',
+           subtitle = 'Distribution of daily wind generation by month. \nColor is average daily generation for that month, where a darker blue represents a higher average.',
+           caption = 'Source: CAISO OASIS',
+           x = 'Daily generation (GWh)',
+           y = NULL) + 
+      facet_wrap(~month, ncol = 1, strip.position = "left", dir = "v") +
+      scale_fill_gradient(low = '#deebf7', high = '#3182bd') +
+      scale_x_continuous(expand = c(0,0), limits = c(0, 150), breaks = seq(0, 150, 25)) +
+      scale_y_continuous(expand = c(0,0)) + 
+      theme_line
+    fig_wind
+    
+    ggsave(fig_wind,
+           filename = file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'),
+           width = 6.8,
+           height = 7,
+           units = 'in', 
+           device = 'pdf')
+    
+    embed_fonts(file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'),
+                outfile = file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'))
+    
+    
