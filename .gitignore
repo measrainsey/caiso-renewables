@@ -133,3 +133,8 @@ dmypy.json
 
 # save .idea/
 .idea/*
+
+# add node related files
+node_modules/*
+package-lock.json
+package.json
