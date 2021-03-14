@@ -43,12 +43,19 @@ df_caiso = pd.concat(appended_dfs, axis=0, sort=False)
 df_caiso.columns= df_caiso.columns.str.lower()
 df_caiso.columns = df_caiso.columns.str.replace(' ','_')
 
-# add print line
-print('Data collection complete. Now saving data...')
+# find daily maximum generation of each renewable source ------
+print('Data collection complete. Now processing data...')
 
-# save dataframe to csv ------
-# path_parent = os.path.dirname(os.getcwd())
-# os.chdir(path_parent)
-save_path = os.path.join(os.getcwd(), 'data', 'caiso_daily_renewables_watch_' + start_date + '_' + end_date + '.csv')
-df_caiso.to_csv(save_path, index = False)
-print('Data has been saved to ' + save_path)
+df_max = df_caiso[['date', 'geothermal', 'biomass', 'biogas', 'small_hydro',
+                   'wind_total', 'solar_pv', 'solar_thermal']].groupby(['date']).max().reset_index()
+
+# save dataframes to csv ------
+print('Data processing complete. Now saving files...')
+
+raw_path = os.path.join(os.getcwd(), 'data', 'caiso_raw_renewables_watch_' + start_date + '_' + end_date + '.csv')
+df_caiso.to_csv(raw_path, index = False)
+print('Raw data has been saved to ' + raw_path)
+
+process_path = os.path.join(os.getcwd(), 'data', 'caiso_max_renewables_watch_' + start_date + '_' + end_date + '.csv')
+df_max.to_csv(process_path, index = False)
+print('Processed data has been saved to ' + raw_path)
