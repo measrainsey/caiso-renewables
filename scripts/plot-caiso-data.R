@@ -54,10 +54,10 @@
             axis.ticks.length.x = unit(0.2, 'cm'),
             axis.text.x = element_text(margin = margin(2, 0, 0, 0))) +  
       theme(strip.text.y.left = element_text(angle = 0, hjust = 1, vjust = 0)) +
-      theme(panel.spacing.y = unit(-4, "lines")) +
+      theme(panel.spacing.y = unit(-4, 'lines')) +
       theme(axis.text.y = element_blank()) +
-      theme(legend.position = "none") +
-      theme(plot.subtitle = element_text(margin=margin(0,0,-15,0)))
+      theme(legend.position = 'none') +
+      theme(plot.subtitle = element_text(margin = margin(0,0,-15,0)))
   
   # plot: solar pv -------
   
@@ -73,8 +73,14 @@
       scale_x_continuous(expand = c(0,0), limits = c(0, 150), breaks = seq(0, 150, 25)) +
       scale_y_continuous(expand = c(0,0)) + 
       theme_line
-    fig_solar
-    
+  
+    ggsave(fig_solar,
+           filename = file.path(here::here('figures'), 'plot-ridgeline-solar.png'),
+           width = 6.8,
+           height = 7,
+           units = 'in', 
+           dpi = 500)
+  
     ggsave(fig_solar,
            filename = file.path(here::here('figures'), 'plot-ridgeline-solar.pdf'),
            width = 6.8,
@@ -99,7 +105,13 @@
       scale_x_continuous(expand = c(0,0), limits = c(0, 150), breaks = seq(0, 150, 25)) +
       scale_y_continuous(expand = c(0,0)) + 
       theme_line
-    fig_wind
+    
+    ggsave(fig_wind,
+           filename = file.path(here::here('figures'), 'plot-ridgeline-wind.png'),
+           width = 6.8,
+           height = 7,
+           units = 'in', 
+           dpi = 500)
     
     ggsave(fig_wind,
            filename = file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'),
@@ -110,5 +122,4 @@
     
     embed_fonts(file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'),
                 outfile = file.path(here::here('figures'), 'plot-ridgeline-wind.pdf'))
-    
     
