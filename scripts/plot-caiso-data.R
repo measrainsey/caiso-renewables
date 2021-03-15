@@ -16,9 +16,11 @@
   
   dt_caiso = fread(here::here('data', data_file), header = T)
   
-# get month column ------
+# create column with month names ------
   
   dt_caiso[, month := format(date, '%B')]
+  
+# create a column that's the average of daily generation within each month -------
   
   cols = c('geothermal', 'biomass', 'biogas', 'small_hydro', 'wind_total', 'solar_pv', 'solar_thermal')
   dt_caiso[, paste0(cols, "_mean") := lapply(.SD, mean), .SDcols = cols, by = .(month)]
